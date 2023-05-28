@@ -56,9 +56,6 @@ def my_experience(request):
 
 
 
-   
-
-
 def projectsPage(request):
     template_name = 'projects/projects_page.html'
     if request.method == 'GET':
@@ -104,16 +101,6 @@ def test404(request):
     return render(request, 'errors/404.html')
 
 
-
-def customer_get_restaurants(request):
-    restaurants = RestaurantSerializer(
-        Restaurant.objects.all().order_by("-id"),
-        many=True,
-        context={
-            "request": request
-        }).data
-
-    return JsonResponse({"restaurants": restaurants})
 
 
 
