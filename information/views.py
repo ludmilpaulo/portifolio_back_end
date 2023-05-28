@@ -12,6 +12,31 @@ from django.conf import settings
 
 
 
+def homePage(request):
+    template_name = 'homePage.html'
+    context = {}
+
+
+    if request.method == 'GET':
+        form = MessageForm()
+        competences = Competence.objects.all().order_by('id')
+        education = Education.objects.all().order_by('-id')
+        experiences = Experience.objects.all().order_by('-id')
+        projects = Project.objects.filter(show_in_slider=True).order_by('-id')
+        info = Information.objects.first()
+        context = {
+            'info': info,
+            'competences': competences,
+            'education': education,
+            'experiences': experiences,
+            'projects': projects,
+            'form': form,
+            'recaptcha_key': config("recaptcha_site_key", default="")
+        }
+    return render(request, template_name, context)
+
+
+
 
 def email_send(data):
     old_message = Message.objects.last()
