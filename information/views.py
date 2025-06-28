@@ -13,12 +13,12 @@ from django.conf import settings
 
 
 def homePage(request):
-    template_name = 'homePage.html'
+   
     context = {}
 
 
     if request.method == 'GET':
-        form = MessageForm()
+       # form = MessageForm()
         competences = Competence.objects.all().order_by('id')
         education = Education.objects.all().order_by('-id')
         experiences = Experience.objects.all().order_by('-id')
@@ -30,10 +30,10 @@ def homePage(request):
             'education': education,
             'experiences': experiences,
             'projects': projects,
-            'form': form,
+         #   'form': form,
             'recaptcha_key': config("recaptcha_site_key", default="")
         }
-    return render(request, template_name, context)
+    return render(request, context)
 
 
 
